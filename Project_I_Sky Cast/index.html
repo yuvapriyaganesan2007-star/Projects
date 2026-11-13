@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101c35">
+    <meta name="description" content="SkyCast - Your personal live weather dashboard">
+    <title>SkyCast | Weather Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cloud-sun"></i>
+                <span>SkyCast</span>
+            </div>
+
+            <p class="menu-label">MENU</p>
+
+            <nav class="navigation">
+                <a href="#" class="nav-link active" data-page="overview">
+                    <i class="fa-solid fa-house"></i>
+                    Overview
+                </a>
+
+                <a href="#" class="nav-link" data-page="hourly">
+                    <i class="fa-solid fa-clock"></i>
+                    Hourly Forecast
+                </a>
+
+                <a href="#" class="nav-link" data-page="weekly">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    7-Day Forecast
+                </a>
+
+                <a href="#" class="nav-link" data-page="favorites">
+                    <i class="fa-solid fa-heart"></i>
+                    Favorite Cities
+                </a>
+
+                <a href="#" class="nav-link" data-page="air-quality">
+                    <i class="fa-solid fa-wind"></i>
+                    Air Quality
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button id="themeToggle" class="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="topbar">
+                <div>
+                    <p class="welcome-text">WEATHER OVERVIEW</p>
+                    <h1>Good day!</h1>
+                </div>
+
+                <div class="header-actions">
+                    <button id="locationBtn" class="icon-btn" title="Use my location">
+                        <i class="fa-solid fa-location-crosshairs"></i>
+                    </button>
+
+                    <div class="profile-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Search -->
+            <section class="search-section">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input
+                        type="text"
+                        id="cityInput"
+                        placeholder="Search for a city..."
+                        autocomplete="off"
+                    >
+                    <button id="searchBtn">Search</button>
+                </div>
+
+                <p id="searchError" class="error-message"></p>
+            </section>
+
+            <!-- Loading -->
+            <div id="loading" class="loading hidden">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Fetching weather information...
+            </div>
+
+            <!-- Dashboard -->
+            <div id="dashboard">
+
+                <!-- Current Weather -->
+                <section class="weather-hero">
+
+                    <div class="weather-info">
+                        <p class="section-label">CURRENT WEATHER</p>
+                        <div class="city-title">
+    <h2 id="cityName">Search for a city</h2>
+    <button id="favoriteBtn" class="favorite-btn" title="Add to favorites">☆</button>
+</div>
+                        <p id="currentDate">Your weather starts here</p>
+
+                        <div class="temperature">
+                            <span id="temperature">--</span>
+                            <span class="degree">°C</span>
+                        </div>
+
+                        <p id="weatherDescription">Weather information will appear here</p>
+
+                        <p id="feelsLike">Feels like --°C</p>
+                    </div>
+
+                    <div class="weather-illustration">
+                        <i id="weatherIcon" class="fa-solid fa-cloud-sun"></i>
+                    </div>
+
+                </section>
+
+                <!-- Weather Details -->
+                <section class="section">
+                    <div class="section-heading">
+                        <h2>Today's Highlights</h2>
+                    </div>
+
+                    <div class="highlights-grid">
+
+                        <div class="highlight-card">
+                            <i class="fa-solid fa-droplet"></i>
+                            <p>Humidity</p>
+                            <h3 id="humidity">--%</h3>
+                        </div>
+
+                        <div class="highlight-card">
+                            <i class="fa-solid fa-wind"></i>
+                            <p>Wind Speed</p>
+                            <h3 id="windSpeed">-- km/h</h3>
+                        </div>
+
+                        <div class="highlight-card">
+                            <i class="fa-solid fa-gauge-high"></i>
+                            <p>Pressure</p>
+                            <h3 id="pressure">-- hPa</h3>
+                        </div>
+
+                        <div class="highlight-card">
+                            <i class="fa-solid fa-temperature-half"></i>
+                            <p>UV Index</p>
+                            <h3 id="uvIndex">--</h3>
+                        </div>
+
+                        <div class="highlight-card">
+                            <i class="fa-solid fa-sun"></i>
+                            <p>Sunrise</p>
+                            <h3 id="sunrise">--:--</h3>
+                        </div>
+
+                        <div class="highlight-card">
+                            <i class="fa-solid fa-moon"></i>
+                            <p>Sunset</p>
+                            <h3 id="sunset">--:--</h3>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Hourly Forecast -->
+                <section class="section">
+                    <div class="section-heading">
+                        <h2>Hourly Forecast</h2>
+                    </div>
+
+                    <div id="hourlyForecast" class="hourly-grid">
+                        <p>Search a city to see hourly forecasts.</p>
+                    </div>
+                </section>
+
+                <!-- 7 Day Forecast -->
+                <section class="section">
+                    <div class="section-heading">
+                        <h2>7-Day Forecast</h2>
+                    </div>
+
+                    <div id="weeklyForecast" class="weekly-list">
+                        <p>Search a city to see the weekly forecast.</p>
+                    </div>
+                </section>
+
+            </div>
+
+            <footer>
+                <p>SkyCast © 2026 | Your weather, beautifully presented.</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
